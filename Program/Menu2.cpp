@@ -1,114 +1,84 @@
 #include "income.h"
-void Showtable(struct list, char* ,char*);
-void Menu2(){
-	
-	struct list table;
-	int menu;
+
+typedef struct
+{
+	char dd[10],mm[10];
+	int yy;
+}date;
+
+void Menu2()
+{
+	int menu2,i;
+	char filename[25] = "storage/";
+	FILE *p;
+	date date1;		
 	
 	do{
-		system("cls");
-		
-		//Choose option.
-		printf("1. Show table.\n");
-		printf("0. Exit\n");
-		menu = InvalidInput("Press : ",0,1);
-		
-		//If press 0. Exit
-		if(menu == 0){
-			printf("Back to Main Menu \n");
-			delay(1000);
-			break;
-		}
-		
-		//Get day of this day.
-		getDate(table.date);
-		
-		int sub_menu;
-		do{
-			//Setting file name.
-			char file_in[30] = "storage/";
-			char file_out[30] = "storage/";
-			
-			//Set outcome file name following by input date.
-			strcat(file_out,table.date);
-			strcat(file_out,"out.txt");
-			
-			//Set income file name following by input date.
-			strcat(file_in,table.date);
-			strcat(file_in,"in.txt");	
-			
-			//Display table.
-			Showtable(table,file_in,file_out);
-			
-			sub_menu = InvalidInput("\nDo you want to see another date?(Press 1(Yes),0(No)) : ",0,1);
-			
-			//If not, exit this page.
-			if(sub_menu == 0) break;
-			
-			//Get wanted date.
-			int day,month,year;
-			printf("Input only number:\n");
-			do{
-				day = InvalidInput("Day  :",1,31);
-				month = InvalidInput("Month : ",1,12);
-				if(!(Valid_daymonth(day,month))) printf("Invalid choice. Please try again.\n");
-			}while(!(Valid_daymonth(day,month)));
-			year = InvalidInput("Year  : ",0,INT_MAX);
-			sprintf(table.date,"%02d-%02d-%d",day,month,year);				
-		}while(sub_menu != 0);
-			
-		
-	}while(menu!=0);
 	
-}
-void Showtable(struct list table_,char* in, char* out){
-	FILE *fp;
-	float in_amount = 0, out_amount = 0;
 	system("cls");
+
+	//Fill date.
+		int day,month,year;
+		printf("Plese Enter Date (Day-Month-Year):\n");
+		do{
+			day = InvalidInput("Day   :",1,31);
+			month = InvalidInput("Month : ",1,12);
+			if(!(Valid_daymonth(day,month))) printf("Invalid choice. Please try again.\n");
+		}while(!(Valid_daymonth(day,month)));
+		year = InvalidInput("Year  : ",0,INT_MAX);
+		sprintf(filename,"storage/%02d-%02d-%d.txt",day,month,year);
+		
+		//filename = ("%02d%02d%d",day,month,year); 
 	
-	printf("\nDate : %s\n",table_.date);
-	printf("\n%-20s %-10s %-10s %-50s\n","List","Income","Expense","Detail");
-	
-	//Check income or expense file exist.
-	if((fp = fopen(in,"r")) == NULL && (fp = fopen(out,"r")) == NULL){
-		printf("\nNo information to display.\n");
+	if((p=fopen(filename,"r"))==NULL)
+	{
+		printf("Cannot open file \n");
+		//return ;
+	}
+	while (!feof(p)) 
+	{
+		fscanf(p,"storage/%02d-%02d-%d.txt",&day,&month,&year);
+		//if(date==filename)
+		printf("\nIncome.\n");
+		printf("==================================\n");
+		printf("== Time ==    List    == Amount ==\n");
+		printf("==================================\n");
+		printf("== %02d   ==    %02d      ==  %d     ==\n",day,month,year);
+		printf("==================================\n");
+		printf("=====    Total     =====   %d    ==\n");
+		printf("==================================\n");
+		break;
+	}
+
+	while (!feof(p)) 
+	{
+		fscanf(p,"storage/%02d-%02d-%d.txt",&day,&month,&year);
+		//if(date==filename)
+		printf("\nExpense.\n");
+		printf("==================================\n");
+		printf("== Time ==    List    == Amount ==\n");
+		printf("==================================\n");
+		printf("== %02d   ==    %02d      ==  %d     ==\n",day,month,year);
+		printf("==================================\n");
+		printf("=====    Total     =====   %d    ==\n");
+		printf("==================================\n");
+		break;
 	}
 	
-	char type_income [8][20] = {"Refund","Special","Revenue","Free","Business income","Withdraw","Borrow","Other"};
-	char type_expense [7][20] = {"Food","Transport","Accommodation","Groceries","Services","Utilities","Others"};
+	fclose(p);
 	
-	//If income file exist.
-	if((fp = fopen(in,"r")) != NULL){
-		while(!feof(fp)){
-			char text[20] = "[";
-			//Get information			
-			fscanf(fp,"%s %d %f %s\n",&table_.name,&table_.type,&table_.amount,&table_.detail);
-			in_amount+=table_.amount;
-			
-			//Set text.
-			strcat(text,type_income[table_.type]);
-			strcat(text,"]");
-			strcat(text,table_.name);
-				
-			printf("%-20s %-10.2f %-10s %-50s\n",text,table_.amount,"-",table_.detail);
-		}
-		fclose(fp);			
-	}
+
+	printf("\nDo you want to see other day (Press 1(Yes),0(No)) : ");
+	menu2 = InvalidInput(" ",0,1);
 	
-	//If expense file exist.
-	if((fp = fopen(out,"r")) != NULL){
-		while(!feof(fp)){
-			char text[20] = "[";			
-			fscanf(fp,"%s %d %f %s\n",&table_.name,&table_.type,&table_.amount,&table_.detail);
-			out_amount+=table_.amount;
-			
-			strcat(text,type_expense[table_.type]);
-			strcat(text,"]");
-			strcat(text,table_.name);
-			
-			printf("%-20s %-10s %-10.2f %-50s\n",text,"-",table_.amount,table_.detail);
-		}
-		fclose(fp);
+	//Go to selected menu.
+	switch(menu2){
+		case 1: printf("Go to Menu2 \n"); break;
+		default: printf("Back to Main Menu \n"); break;
 	}
-	printf("\n%-20s %-10.2f %-10.2f\n","Total",in_amount,out_amount);
+	delay(1000);
+		
+	}while (menu2 !=0 );
+	
 }
+
