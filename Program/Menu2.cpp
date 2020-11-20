@@ -1,5 +1,7 @@
 #include "income.h"
 
+//Check line 31, 42 & 57
+
 typedef struct
 {
 	char dd[10],mm[10];
@@ -26,7 +28,7 @@ void Menu2()
 			if(!(Valid_daymonth(day,month))) printf("Invalid choice. Please try again.\n");
 		}while(!(Valid_daymonth(day,month)));
 		year = InvalidInput("Year  : ",0,INT_MAX);
-		sprintf(filename,"storage/%02d-%02d-%d.txt",day,month,year);
+		sprintf(filename,"storage/%02d-%02d-%d.txt",day,month,year);//Check filname correctly
 		
 		//filename = ("%02d%02d%d",day,month,year); 
 	
@@ -37,7 +39,7 @@ void Menu2()
 	}
 	while (!feof(p)) 
 	{
-		fscanf(p,"storage/%02d-%02d-%d.txt",&day,&month,&year);
+		fscanf(p,"storage/%02d-%02d-%d.txt",&day,&month,&year);//Look file and Menu1 that how information arrange.
 		//if(date==filename)
 		printf("\nIncome.\n");
 		printf("==================================\n");
@@ -52,7 +54,7 @@ void Menu2()
 
 	while (!feof(p)) 
 	{
-		fscanf(p,"storage/%02d-%02d-%d.txt",&day,&month,&year);
+		fscanf(p,"storage/%02d-%02d-%d.txt",&day,&month,&year);//Look file and Menu1 that how information arrange.
 		//if(date==filename)
 		printf("\nExpense.\n");
 		printf("==================================\n");
