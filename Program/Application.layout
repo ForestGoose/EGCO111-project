@@ -1,10 +1,10 @@
 [Editors]
-Order=0,2,3,4
+Order=0,2,3,4,5
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-Focused=2
+Focused=5
 =======
 Focused=2
 >>>>>>> origin
@@ -15,11 +15,11 @@ Focused=2
 >>>>>>> 06d5fa8206fcd09c760d1903ea1a49568f706f65
 [Editor_0]
 <<<<<<< HEAD
-CursorCol=2
-CursorRow=52
+CursorCol=4
+CursorRow=4
 =======
 Focused=2
-TopLine=17
+TopLine=37
 =======
 CursorCol=17
 CursorRow=53
@@ -38,13 +38,13 @@ LeftChar=1
 <<<<<<< HEAD
 CursorCol=16
 CursorRow=28
-TopLine=4
+TopLine=10
 LeftChar=1
 [Editor_2]
 <<<<<<< HEAD
-CursorCol=16
-CursorRow=164
-TopLine=131
+CursorCol=2
+CursorRow=230
+TopLine=1
 LeftChar=1
 [Editor_3]
 CursorCol=23
@@ -91,7 +91,7 @@ CursorRow=14
 TopLine=1
 LeftChar=1
 [Editor_5]
-CursorCol=5
-CursorRow=88
-TopLine=32
+CursorCol=37
+CursorRow=36
+TopLine=78
 LeftChar=1
