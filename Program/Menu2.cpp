@@ -1,14 +1,12 @@
 #include "income.h"
-void Menu2()
+
+int Menu2()
 {
-	int menu2,i;
+	int menu2;
 	char filename[25] = "storage/";
-	char list_type_income [8][20] = {"Refund","Special","Revenue","Free","Business income","Withdraw","Borrow","Other"};
-	char list_type_expense [7][20] = {"Food","Transport","Accommodation","Groceries","Services","Utilities","Others"};
-	float amount[7] = {0};
 	FILE *p1,*p2,*p3;
 	
-	struct list dis;
+	struct list type;
 	
 	do{
 	
@@ -25,38 +23,22 @@ void Menu2()
 		year = InvalidInput("Year  : ",0,INT_MAX);
 	
 		sprintf(filename,"storage/%02d-%02d-%din.txt",day,month,year);
-		sprintf(filename,"storage/%02d-%02d-%dout.txt",day,month,year);
-		sprintf(filename,"storage/%dtotal.txt",year);
-	
-		printf("====================================================\n");
-		printf("==     List       == Income == Expense ==  Detail ==\n");
-		printf("====================================================\n");
-
-	if((p1=fopen("storage/%02d-%02d-%din.txt","r"))==NULL)
 		
+	printf("\n");
+	if((p1=fopen(filename,"r"))==NULL)
+	{
+		printf("Cannot open file \n");
+		return 1;
+	}
 	while (!feof(p1)) 
 	{
-		fscanf(p1,"%s %s %.2f %s",dis.name,dis.type,&dis.amount,dis.detail);
-		printf("==  [%s] %s       ==  %.2f  ==    -    ==    %s    ==\n",dis.name,dis.type,dis.amount,dis.detail);
-	}break;
-	fclose(p1);	
-		
-	if((p2=fopen("storage/%02d-%02d-%dout.txt","r"))==NULL)
+		fscanf(p1,"%s %d %f",type.name,type.type,&type.amount);
+		//fgets(type.detail,20,p1);
+		printf("%s [%s] %.2f \n",type.name,type.type,type.amount);
 	
-	while (!feof(p2)) 
-	{
-		fscanf(p2,"%s %s %.2f %s",dis.name,dis.type,&dis.amount,dis.detail);	
-		printf("==  [%s] %s       ==   -    ==  %.2f   ==    %s    ==\n",dis.name,dis.type,dis.amount,dis.detail);
-	}break;	
-	fclose(p2);
-		
-		printf("====================================================\n");
-		
-	if((p3=fopen("storage/%dtotal.txt","r"))==NULL)
-		printf("=====  Total      ==  %.2f  ==  %.2f  ===============\n",p3);break;
-	fclose(p3);	
-		printf("====================================================\n");
-		
+	}
+	fclose(p1);	
+	
 
 	printf("\nDo you want to see other day (Press 1(Yes),0(No)) : ");
 	menu2 = InvalidInput(" ",0,1);
